@@ -11,7 +11,7 @@ stdenv.mkDerivation {
     runHook preBuild
 
     for file in ${fairfax}/share/fonts/truetype/*; do
-    nerd-font-patcher $file
+    nerd-font-patcher --complete $file
     done
 
     runHook postBuild
