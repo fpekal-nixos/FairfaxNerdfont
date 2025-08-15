@@ -18,5 +18,5 @@ stdenv.mkDerivation {
   '';
 
   installPhase =
-    "	runHook preInstall\n\n	mkdir -p $out/share/fonts/truetype\n	cp Fairfax* $out/share/fonts/truetype/\n\n	runHook postInstall\n";
+    "	runHook preInstall\n\n	mkdir -p $out/share/fonts/truetype\n	cp Fairfax* $out/share/fonts/truetype/\n\n		cp -r ${fairfax}/share/doc $out/share\n\n		runHook postInstall\n";
 }
