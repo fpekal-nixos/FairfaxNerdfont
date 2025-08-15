@@ -11,12 +11,20 @@ stdenv.mkDerivation {
     runHook preBuild
 
     for file in ${fairfax}/share/fonts/truetype/*; do
-    nerd-font-patcher --complete $file
+    	nerd-font-patcher --complete $file
     done
 
     runHook postBuild
   '';
 
-  installPhase =
-    "	runHook preInstall\n\n	mkdir -p $out/share/fonts/truetype\n	cp Fairfax* $out/share/fonts/truetype/\n\n		cp -r ${fairfax}/share/doc $out/share\n\n		runHook postInstall\n";
+  installPhase = ''
+    runHook preInstall
+
+    mkdir -p $out/share/fonts/truetype
+    cp Fairfax* $out/share/fonts/truetype/
+
+    cp -r ${fairfax}/share/doc $out/share
+
+    runHook postInstall
+  '';
 }
