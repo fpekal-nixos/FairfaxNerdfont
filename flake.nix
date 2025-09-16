@@ -2,11 +2,17 @@
   inputs = { nixpkgs.url = "github:nixos/nixpkgs"; };
 
   outputs = { nixpkgs, self }:
-    let pkgs = nixpkgs.legacyPackages.x86_64-linux;
+    let
+			genPackage = system:
+				let pkgs = nixpkgs.legacyPackages.${system};
+				in rec {
+					fairfax-nerdfont = pkgs.callPackage ./default.nix { };
+					default = fairfax-nerdfont;
+				};
     in {
-      packages.x86_64-linux = {
-        fairfax-nerdfont = pkgs.callPackage ./default.nix { };
-        default = self.packages.x86_64-linux.fairfax-nerdfont;
-      };
+			packages = {
+				x86_64-linux = genPackage "x86_64-linux";
+				aarch64-linux = genPackage "aarch64-linux";
+			};
     };
 }
